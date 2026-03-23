@@ -2,9 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\DashboardController;
+use App\Http\Controllers\Api\SocialPostController;
 
-Route::get('/metrics', [DashboardController::class, 'getMetrics']);
+// Fully RESTful API for SocialPosts
+Route::apiResource('social-posts', SocialPostController::class);
 
 Route::get('/user', function (Request $request) {
     return $request->user();

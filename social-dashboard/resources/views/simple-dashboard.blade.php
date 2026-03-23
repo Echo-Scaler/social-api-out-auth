@@ -68,8 +68,8 @@
             @foreach($posts as $post)
             <a href="{{ $post->permalink }}" target="_blank" class="block bg-white rounded-xl shadow hover:shadow-lg hover:-translate-y-1 transition duration-200 p-4 border border-gray-100 group">
                 <div class="flex items-start space-x-4">
-                    @if($post->thumbnail && !in_array($post->thumbnail, ['self', 'default', '']))
-                        <img src="{{ $post->thumbnail }}" alt="Thumbnail" class="w-16 h-16 rounded-md object-cover flex-shrink-0">
+                    @if($post->thumbnail && filter_var($post->thumbnail, FILTER_VALIDATE_URL))
+                        <img src="{{ html_entity_decode($post->thumbnail) }}" alt="Thumbnail" class="w-16 h-16 rounded-md object-cover flex-shrink-0 shadow-sm border border-gray-200">
                     @endif
                     <div>
                         <h4 class="text-lg font-semibold text-gray-900 group-hover:text-indigo-600 transition">{{ $post->title }}</h4>
