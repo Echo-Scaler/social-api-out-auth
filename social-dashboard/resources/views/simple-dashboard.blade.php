@@ -15,7 +15,7 @@
                     <span class="text-xl font-bold text-indigo-600">Laravel Dashboard</span>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <span class="text-gray-700">Welcome, {{ auth()->user()->name }}</span>
+                    <span class="text-gray-700">Welcome, {{ auth()->check() ? auth()->user()->name : 'Guest' }}</span>
                 </div>
             </div>
         </div>
@@ -64,6 +64,11 @@
                 </div>
             </a>
             @endforeach
+        </div>
+
+        <!-- Pagination -->
+        <div class="mt-8">
+            {{ $posts->links() }}
         </div>
     </div>
 </body>

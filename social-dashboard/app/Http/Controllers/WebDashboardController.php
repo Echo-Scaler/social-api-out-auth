@@ -31,19 +31,21 @@ class WebDashboardController extends Controller
             );
         }
 
-        // 3. Aggregate metrics
-        $dbPosts = SocialPost::orderBy('created_utc', 'desc')->take(20)->get();
+        // 3. Aggregate global metrics from the database
+        $totalLikes = SocialPost::sum('score');
+        $totalComments = SocialPost::sum('num_comments');
+        $totalPosts = SocialPost::count();
+        $avgEngagement = $totalPosts > 0 ? ($totalLikes + $totalComments) / $totalPosts : 0;
 
-        $totalLikes = $dbPosts->sum('score');
-        $totalComments = $dbPosts->sum('num_comments');
-        $avgEngagement = $dbPosts->count() > 0 ? ($totalLikes + $totalComments) / $dbPosts->count() : 0;
+        // 4. Paginate posts for the view
+        $dbPosts = SocialPost::orderBy('created_utc', 'desc')->paginate(5);
 
         return view('simple-dashboard', [
             'metrics' => [
                 'total_likes' => $totalLikes,
                 'total_comments' => $totalComments,
                 'avg_engagement' => round($avgEngagement, 2),
-                'total_posts' => $dbPosts->count(),
+                'total_posts' => $totalPosts,
             ],
             'posts' => $dbPosts
         ]);
