@@ -1,0 +1,19 @@
+Social Media REST API Project (Laravel 11 + React)
+1. Project Initialization
+ Initialize Laravel 11 project
+ Set up React frontend (using Inertia.js or standalone React with Vite)
+ Configure database (MySQL)
+2. Backend Implementation
+ Set up Reddit API credentials/configuration in .env
+ Create SocialMediaService class for API interaction and caching
+ Create Database Migrations & Models (e.g., SocialPost)
+ Create API endpoints (Controllers, Requests, Resources)
+ Implement caching (Redis or File) to avoid repeated public API calls
+3. Frontend Implementation
+ Setup React application architecture and routing
+ Create Dashboard layout and UI components
+ Fetch data from Laravel API using Axios
+ Visualize metrics (Likes, Shares, Comments)
+4. Polish and Finalization
+ Validate API key security and input validation
+ Test caching and performance
