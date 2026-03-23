@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class SocialPost extends Model
 {
     protected $fillable = [
+        'subreddit',
         'post_id',
         'title',
         'author',
