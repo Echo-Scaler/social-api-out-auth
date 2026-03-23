@@ -18,6 +18,7 @@ Route::middleware('auth')->group(function () {
 
     // Web UI CRUD
     Route::resource('social-posts', \App\Http\Controllers\SocialPostController::class)->except(['show']);
+    Route::resource('categories', \App\Http\Controllers\CategoryController::class);
 });
 
 require __DIR__.'/auth.php';

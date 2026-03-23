@@ -14,9 +14,9 @@
     ];
 @endphp
 
-<div {{ $attributes->merge(['class' => "flex p-4 border rounded-xl {$variants[$type]}"]) }}>
+<div {{ $attributes->merge(['class' => "flex p-4 border rounded-xl " . ($variants[(string) $type] ?? $variants['success'])]) }}>
     <div class="flex-shrink-0">
-        {!! $icons[$type] !!}
+        {!! $icons[(string) $type] ?? $icons['success'] !!}
     </div>
     <div class="ml-3 font-medium">
         {{ $message ?? $slot }}

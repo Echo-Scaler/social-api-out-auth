@@ -16,7 +16,7 @@
         'lg' => 'px-6 py-3 text-base',
     ];
 
-    $classes = "{$baseClasses} {$variants[$variant]} {$sizes[$size]}";
+    $classes = "{$baseClasses} " . ($variants[(string) $variant] ?? $variants['primary']) . " " . ($sizes[(string) $size] ?? $sizes['md']);
 @endphp
 
 <button {{ $attributes->merge(['class' => $classes]) }}>
