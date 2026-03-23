@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('social_posts挑战', function (Blueprint $table) {
-            //
+        Schema::table('social_posts', function (Blueprint $table) {
+            $table->index('subreddit');
+            $table->index('category_id');
+            $table->index('created_utc');
         });
     }
 
@@ -21,8 +23,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('social_posts挑战', function (Blueprint $table) {
-            //
+        Schema::table('social_posts', function (Blueprint $table) {
+            $table->dropIndex(['subreddit']);
+            $table->dropIndex(['category_id']);
+            $table->dropIndex(['created_utc']);
         });
     }
 };
