@@ -5,18 +5,19 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FetchSocialPostsRequest;
 use App\Services\RedditApiService;
 use App\Services\SocialPostService;
-use App\Models\SocialPost;
+use App\Repositories\SocialPostRepository;
 
 class WebDashboardController extends Controller
 {
     /**
      * Web controller for dashboard logic.
-     * Uses Services to abstract the API calls and database synchronization.
+     * Uses Services and Repositories to abstract logic and data access.
      */
     public function index(
         FetchSocialPostsRequest $request, 
         RedditApiService $redditApiService, 
-        SocialPostService $socialPostService
+        SocialPostService $socialPostService,
+        SocialPostRepository $repository
     ) {
         $subreddit = $request->getSubreddit();
 
@@ -29,10 +30,8 @@ class WebDashboardController extends Controller
         // 3. Delegate metric calculation to the Service Layer
         $metrics = $socialPostService->getMetricsForSubreddit($subreddit);
 
-        // 4. Paginate posts for the view
-        $dbPosts = SocialPost::where('subreddit', $subreddit)
-            ->orderBy('created_utc', 'desc')
-            ->paginate(5);
+        // 4. Use the Repository for paginated data retrieval
+        $dbPosts = $repository->getPaginatedBySubreddit($subreddit, 5);
             
         $dbPosts->appends(['subreddit' => $subreddit]);
 
