@@ -13,15 +13,16 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('Posts') }}
                     </x-nav-link>
                     
-                    <x-nav-link :href="route('social-posts.index')" :active="request()->routeIs('social-posts.*')">
-                        {{ __('Custom Posts') }}
-                    </x-nav-link>
 
                     <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
                         {{ __('Categories') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('api.hub')" :active="request()->routeIs('api.hub')">
+                        {{ __('API Hub') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -79,12 +80,13 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
             
-            <x-responsive-nav-link :href="route('social-posts.index')" :active="request()->routeIs('social-posts.*')">
-                {{ __('Custom Posts') }}
-            </x-responsive-nav-link>
 
             <x-responsive-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
                 {{ __('Categories') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('api.hub')" :active="request()->routeIs('api.hub')">
+                {{ __('API Hub') }}
             </x-responsive-nav-link>
         </div>
 

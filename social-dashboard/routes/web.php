@@ -17,8 +17,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Web UI CRUD
-    Route::resource('social-posts', \App\Http\Controllers\SocialPostController::class)->except(['show']);
+    Route::resource('social-posts', \App\Http\Controllers\SocialPostController::class);
     Route::resource('categories', \App\Http\Controllers\CategoryController::class);
+    Route::get('/api-hub', function () {
+        return view('api-management');
+    })->name('api.hub');
 });
 
 require __DIR__.'/auth.php';

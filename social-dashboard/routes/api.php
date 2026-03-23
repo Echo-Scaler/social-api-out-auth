@@ -3,9 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\SocialPostController;
+use App\Http\Controllers\Api\CategoryController;
 
 // Fully RESTful API for SocialPosts
 Route::apiResource('social-posts', SocialPostController::class);
+Route::apiResource('categories', CategoryController::class);
 
 Route::get('/', function () {
     return response()->json([

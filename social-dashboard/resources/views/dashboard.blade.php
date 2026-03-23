@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <h2 class="font-bold text-2xl text-gray-800 leading-tight">
-                {{ __('Social Analytics Dashboard') }}
+                {{ __('Social Intelligence Center') }}
             </h2>
             <div class="flex items-center space-x-2 text-sm font-medium text-gray-500 bg-white px-4 py-2 rounded-xl shadow-sm border border-gray-100">
                 <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
