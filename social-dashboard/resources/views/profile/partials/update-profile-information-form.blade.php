@@ -14,9 +14,31 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-8 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" class="mt-8 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
+
+        <!-- Avatar Upload Section -->
+        <div class="flex items-center space-x-6 mb-6 pb-6 border-b border-gray-100">
+            <div class="shrink-0">
+                <img id="avatar-preview" class="h-16 w-16 object-cover rounded-2xl shadow-md border-2 border-white" src="{{ $user->getAvatarUrl() }}" alt="{{ $user->name }}">
+            </div>
+            <div class="space-y-1">
+                <label class="block">
+                    <span class="text-sm font-semibold text-gray-700">Profile Picture</span>
+                    <input type="file" name="avatar" onchange="document.getElementById('avatar-preview').src = window.URL.createObjectURL(this.files[0])"
+                        class="block w-full text-xs text-slate-500 mt-1
+                        file:mr-4 file:py-2 file:px-4
+                        file:rounded-full file:border-0
+                        file:text-xs file:font-semibold
+                        file:bg-indigo-50 file:text-indigo-700
+                        hover:file:bg-indigo-100
+                        transition-all duration-200 cursor-pointer"
+                    />
+                </label>
+                <p class="text-[10px] text-gray-400 font-medium italic">Recommended: Square image, max 2MB</p>
+            </div>
+        </div>
 
         <div class="space-y-2">
             <x-input-label for="name" :value="__('Full Name')" class="text-gray-700 font-semibold" />

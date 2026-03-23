@@ -1,3 +1,4 @@
+<x-guest-layout>
     <div class="text-center mb-8">
         <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight">Welcome Back</h2>
         <p class="mt-2 text-sm text-gray-600 font-medium">Please enter your details to sign in</p>
@@ -15,12 +16,12 @@
 
         <div class="flex items-center justify-between">
             <label for="remember_me" class="inline-flex items-center cursor-pointer">
-                <input id="remember_me" type="checkbox" class="rounded-lg border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500 w-5 h-5 transition cursor-pointer" name="remember">
+                <input id="remember_me" type="checkbox" class="rounded-lg border-gray-300 text-indigo-100 shadow-sm focus:ring-indigo-100 w-5 h-5 transition cursor-pointer" name="remember">
                 <span class="ms-2 text-sm text-gray-600 font-medium select-none">{{ __('Remember me') }}</span>
             </label>
 
             @if (Route::has('password.request'))
-                <a class="text-sm font-bold text-indigo-600 hover:text-indigo-500 transition underline-offset-4 hover:underline" href="{{ route('password.request') }}">
+                <a class="text-sm font-bold text-blue-400 hover:text-gray-600 transition underline-offset-4 hover:underline" href="{{ route('password.request') }}">
                     {{ __('Forgot password?') }}
                 </a>
             @endif
@@ -39,3 +40,4 @@
             </p>
         </div>
     </form>
+</x-guest-layout>

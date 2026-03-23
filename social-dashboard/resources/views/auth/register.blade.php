@@ -1,3 +1,4 @@
+<x-guest-layout>
     <div class="text-center mb-8">
         <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight">Create Account</h2>
         <p class="mt-2 text-sm text-gray-600 font-medium">Join us for premium social analytics</p>
@@ -28,3 +29,4 @@
             </p>
         </div>
     </form>
+</x-guest-layout>

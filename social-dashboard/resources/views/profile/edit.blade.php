@@ -15,9 +15,9 @@
                 
                 <div class="px-8 pb-8">
                     <div class="relative flex items-end -mt-12 mb-6">
-                        <!-- Avatar Placeholder -->
+                        <!-- Avatar Display -->
                         <div class="flex items-center justify-center w-24 h-24 rounded-2xl bg-white shadow-lg border-4 border-white overflow-hidden">
-                            <span class="text-3xl font-bold text-indigo-600">{{ substr(Auth::user()->name, 0, 1) }}</span>
+                            <img class="w-full h-full object-cover" src="{{ Auth::user()->getAvatarUrl() }}" alt="{{ Auth::user()->name }}">
                         </div>
                         <div class="ml-6 flex-1">
                             <h1 class="text-2xl font-bold text-gray-900">{{ Auth::user()->name }}</h1>
