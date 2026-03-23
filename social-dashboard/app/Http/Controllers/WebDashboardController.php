@@ -36,7 +36,7 @@ class WebDashboardController extends Controller
             
         $dbPosts->appends(['subreddit' => $subreddit]);
 
-        return view('simple-dashboard', [
+        return view('dashboard', [
             'metrics'           => $metrics,
             'posts'             => $dbPosts,
             'current_subreddit' => $subreddit
