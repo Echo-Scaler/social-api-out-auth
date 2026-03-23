@@ -3,57 +3,41 @@
 namespace App\Http\Controllers;
 
 use App\Models\SocialPost;
-use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Http\Requests\StoreSocialPostRequest;
+use App\Http\Requests\UpdateSocialPostRequest;
 use Carbon\Carbon;
 
 class SocialPostController extends Controller
 {
     public function index()
     {
-        $posts = SocialPost::latest('created_utc')->paginate(10);
+        // Eager load category to prevent N+1
+        $posts = SocialPost::with('category')->latest('created_utc')->paginate(10);
         return view('social-posts.index', compact('posts'));
     }
 
     public function create()
     {
-        return view('social-posts.create');
+        $categories = Category::all();
+        return view('social-posts.create', compact('categories'));
     }
 
-    public function store(Request $request)
+    public function store(StoreSocialPostRequest $request)
     {
-        $validated = $request->validate([
-            'subreddit' => 'required|string|max:100',
-            'title' => 'required|string|max:255',
-            'author' => 'required|string|max:100',
-            'url' => 'nullable|url',
-        ]);
-
-        $validated['post_id'] = 'custom_' . uniqid();
-        $validated['permalink'] = '/custom/' . $validated['post_id'];
-        $validated['created_utc'] = Carbon::now();
-        $validated['score'] = 0;
-        $validated['num_comments'] = 0;
-
-        SocialPost::create($validated);
-
+        SocialPost::create($request->validated());
         return redirect()->route('social-posts.index')->with('success', 'Custom Post created successfully!');
     }
 
     public function edit(SocialPost $socialPost)
     {
-        return view('social-posts.edit', compact('socialPost'));
+        $categories = Category::all();
+        return view('social-posts.edit', compact('socialPost', 'categories'));
     }
 
-    public function update(Request $request, SocialPost $socialPost)
+    public function update(UpdateSocialPostRequest $request, SocialPost $socialPost)
     {
-        $validated = $request->validate([
-            'subreddit' => 'required|string|max:100',
-            'title' => 'required|string|max:255',
-            'score' => 'required|integer|min:0',
-        ]);
-
-        $socialPost->update($validated);
-
+        $socialPost->update($request->validated());
         return redirect()->route('social-posts.index')->with('success', 'Post updated successfully.');
     }
 

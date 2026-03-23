@@ -14,6 +14,7 @@ class StoreSocialPostRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'category_id' => 'nullable|exists:categories,id',
             'subreddit' => 'required|string|max:100',
             'post_id' => 'required|string|unique:social_posts,post_id|max:100',
             'title' => 'required|string|max:255',

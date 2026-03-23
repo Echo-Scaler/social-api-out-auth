@@ -82,6 +82,10 @@
             <x-responsive-nav-link :href="route('social-posts.index')" :active="request()->routeIs('social-posts.*')">
                 {{ __('Custom Posts') }}
             </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
+                {{ __('Categories') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->

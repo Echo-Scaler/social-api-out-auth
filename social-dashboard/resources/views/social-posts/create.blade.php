@@ -1,63 +1,53 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-bold text-2xl text-gray-800 leading-tight">
             {{ __('Create Custom Social Post') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                
-                @if ($errors->any())
-                    <div class="mb-4 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg">
-                        <ul class="list-disc pl-5 text-sm">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
-                <form method="POST" action="{{ route('social-posts.store') }}">
+            <x-ui.card title="Post Details">
+                <form method="POST" action="{{ route('social-posts.store') }}" class="space-y-6">
                     @csrf
 
-                    <!-- Subreddit -->
-                    <div class="mb-4">
-                        <label for="subreddit" class="block font-medium text-sm text-gray-700">Subreddit Topic</label>
-                        <div class="mt-1 flex rounded-md shadow-sm">
-                            <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">r/</span>
-                            <input id="subreddit" type="text" name="subreddit" value="{{ old('subreddit', 'custom') }}" required autofocus class="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-1.5">
+                            <label for="category_id" class="block text-sm font-semibold text-gray-700">Category (Optional)</label>
+                            <select name="category_id" id="category_id" class="block w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-gray-900 shadow-sm transition-all focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none sm:text-sm">
+                                <option value="">None</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('category_id')
+                                <p class="mt-2 text-sm text-red-600 font-medium">{{ $message }}</p>
+                            @enderror
                         </div>
+
+                        <x-ui.input label="Subreddit Name" name="subreddit" required placeholder="e.g. webdev" value="custom" />
                     </div>
 
-                    <!-- Title -->
-                    <div class="mb-4">
-                        <label for="title" class="block font-medium text-sm text-gray-700">Post Title</label>
-                        <input id="title" type="text" name="title" value="{{ old('title') }}" required class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm sm:text-sm">
+                    <x-ui.input label="Post Title" name="title" required placeholder="What's on your mind?" />
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <x-ui.input label="Author" name="author" required value="{{ auth()->user()->name }}" />
+                        <x-ui.input label="External URL (Optional)" name="url" type="url" placeholder="https://example.com" />
                     </div>
 
-                    <!-- Author -->
-                    <div class="mb-4">
-                        <label for="author" class="block font-medium text-sm text-gray-700">Author Username</label>
-                        <input id="author" type="text" name="author" value="{{ old('author', auth()->user()->name ?? 'admin') }}" required class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm sm:text-sm">
-                    </div>
+                    {{-- Hidden fields for custom posts --}}
+                    <input type="hidden" name="post_id" value="custom_{{ uniqid() }}">
+                    <input type="hidden" name="permalink" value="/custom/{{ uniqid() }}">
+                    <input type="hidden" name="created_utc" value="{{ now() }}">
+                    <input type="hidden" name="score" value="0">
+                    <input type="hidden" name="num_comments" value="0">
 
-                    <!-- URL -->
-                    <div class="mb-6">
-                        <label for="url" class="block font-medium text-sm text-gray-700">Target URL (Optional)</label>
-                        <input id="url" type="url" name="url" value="{{ old('url') }}" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm sm:text-sm" placeholder="https://example.com">
-                    </div>
-
-                    <div class="flex items-center justify-end">
-                        <a href="{{ route('social-posts.index') }}" class="text-sm text-gray-600 hover:text-gray-900 underline mr-4">Cancel</a>
-                        <button type="submit" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 shadow-sm">
-                            Publish Post
-                        </button>
+                    <div class="flex items-center justify-end pt-4 space-x-4">
+                        <a href="{{ route('social-posts.index') }}" class="text-sm font-medium text-gray-500 hover:text-gray-700 underline transition">Cancel</a>
+                        <x-ui.button type="submit">Publish Post</x-ui.button>
                     </div>
                 </form>
-
-            </div>
+            </x-ui.card>
         </div>
     </div>
 </x-app-layout>

@@ -15,8 +15,9 @@ class UpdateSocialPostRequest extends FormRequest
     {
         // For updates, the unique post_id validation should ignore the current post ID
         return [
+            'category_id' => 'nullable|exists:categories,id',
             'subreddit' => 'string|max:100',
-            'post_id' => 'string|max:100|unique:social_posts,post_id,' . $this->route('social_post')->id,
+            'post_id' => 'string|max:100|unique:social_posts,post_id,' . ($this->route('social_post')->id ?? $this->route('social_post')),
             'title' => 'string|max:255',
             'author' => 'string|max:100',
             'url' => 'nullable|url',

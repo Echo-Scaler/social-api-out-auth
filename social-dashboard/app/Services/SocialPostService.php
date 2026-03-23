@@ -8,19 +8,13 @@ use Illuminate\Support\Collection;
 
 class SocialPostService
 {
-    /**
-     * Store or update fetched posts into the database.
-     *
-     * @param Collection|array $posts
-     * @param string $subreddit
-     * @return void
-     */
-    public function syncPosts($posts, string $subreddit): void
+    public function syncPosts($posts, string $subreddit, ?int $categoryId = null): void
     {
         foreach ($posts as $postData) {
             SocialPost::updateOrCreate(
                 ['post_id' => $postData['id']],
                 [
+                    'category_id'  => $categoryId,
                     'subreddit'    => $subreddit,
                     'title'        => $postData['title'],
                     'author'       => $postData['author'],

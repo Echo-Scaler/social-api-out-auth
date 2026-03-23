@@ -14,16 +14,20 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-            <div>
+    <body class="font-sans text-gray-900 antialiased bg-slate-50">
+        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
+            <div class="mb-8">
                 <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                    <x-application-logo class="w-16 h-16 fill-current text-white drop-shadow-lg" />
                 </a>
             </div>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+            <div class="w-full sm:max-w-md px-8 py-10 bg-white/90 backdrop-blur-xl shadow-2xl border border-white/20 sm:rounded-3xl transition-all duration-300">
                 {{ $slot }}
+            </div>
+
+            <div class="mt-8 text-white/80 text-sm font-medium">
+                &copy; {{ date('Y') }} {{ config('app.name') }} &bull; Premium Analytics
             </div>
         </div>
     </body>
